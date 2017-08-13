@@ -1,0 +1,65 @@
+1) Сначала создаем базу данных.
+3) Создаем сущности и прописываем весь маппинг.
+2) уровень ДАО для работы с БД @Repository.
+3) начинаем с интерфейсов, чтобы не дублировать код сначала дженерализируем интерфейс, потом создаем абстрактный класс наследуемый от дженерик интерфейса
+в котором описываем реализацию методов которые будут повторятся.
+4) Создаем интерфейсы для работы с каждой сущностью расширяя интерфейс ДженералДао,
+таким образом достигается слабосвязность(можем имзменять и подкладывать другие реализации)
+5) Создаем классы имплементации интерфейсов по сущностям, они имплементируются от своих интерфейсов и наследуются от абстрактной реализации,
+таким образом уже имея у родителя реализации одинаковых операций к БД.
+6) Прописываем конфигурацию Hibernate / JPA через Джава класс или spring.xml.
+7) нам нужны BasicDataSource dataSource() для задания настроек базы(url, userName, password, JDBC-driver),
+LocalSessionFactoryBean sessionFactory(DataSource dataSource) в который нужно передать созданный dataSource,
+указать пакет для поиска бинов bean.setPackagesToScan("com.product.system.entity");,
+и задать настройки самого Гибернейта(такие как диалект, отображение SQL и так далее) bean.setHibernateProperties(hibernateProperties());
+ну и последнее настраиваем HibernateTransactionManager transactionManager(SessionFactory sessionFactory) в котором просто создаем transactionManager и передаем ему sessionFactory.
+8) Создаем слой сервисов @Service в нем делегируем методы DAO и делаем над методами @Transactional(что указывает спринг и гибернейт что здесь все выполняется транзакционно ACID),
+а также @Transactional(readOnly = true) там где не нужно делать транзакцию(обычно там где данные только читаются).
+9) Тестируем все в куче.
+10) Создаем слой контроллеров.
+11) Для их настройки в web.xml нужно прописать сам DispatcherServlet который будет принимать все запросы, смотреть через HandlerMapper какому контроллеру его нужно переслать,
+потом передает в HandlerAdapter который уже отдает контроллеру. Контроллер проводит всю логику -> идет к сервисам, они уже в репозиторий(ДАО) или еще куда-то например по Ресту что-то получает или передает.
+После контроллер получает данные, например из БД, создает new ModelAndView() и в него передает данные(Model) и как эти данные отображать(View), а также задает страничку вывода например Index.
+ДиспатчерСервлет на основе полученного ModelAndView ищет какое представление ему использовать (View Resolver) и в ответ получает имя представления (View).
+После этого данные и View отдается пользователю например в какую то .jsp
+
+настройки в web.xml:
+<servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+            <init-param>  -  эти параметры подключаются после создания spring-config.xml, мы просто говорим какие настройки нужно подключить в web
+                <param-name>contextConfigLocation</param-name>
+                <param-value>WEB-INF/spring-config.xml</param-value>
+            </init-param>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/</url-pattern>
+</servlet-mapping>
+
+<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+</context-param>
+
+12) Также создаем конфиг файл спринга spring-config.xml и в нем прописываем:
+
+ Для включения работи mvc и context.
+ xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:context="http://www.springframework.org/schema/context"
+
+
+    <mvc:annotation-driven/> - тут важно вибрать именно для mvc! - это для срабатывания аннотаций типа @Controller @RequestMapping
+    <context:component-scan base-package="com.product.system"/> - глобальный пакет для поиска аннотаций нужных спрингу для создания аннотаций.
+    <mvc:view-controller path="/" view-name="users-page"/> - это здается после создания InternalResourceViewResolver для указания страницы по умолчанию.
+
+    Это уже нужно чтобы указать спрингу где искать странички, именно InternalResourceViewResolver будет смотреть какую вызывать:
+    <bean id="resolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
