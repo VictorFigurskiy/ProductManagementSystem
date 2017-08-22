@@ -17,6 +17,15 @@ LocalSessionFactoryBean sessionFactory(DataSource dataSource) в который 
 а также @Transactional(readOnly = true) там где не нужно делать транзакцию(обычно там где данные только читаются).
 9) Тестируем все в куче.
 10) Создаем слой контроллеров.
+11) Нужен класс MvcConfiguration extends WebMvcConfigurerAdapter.
+12) Потом WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer.
+13) для Спринг секьюрити сначала создаем UserDetailedServiceImpl implements UserDetailsService.
+14) потом SecurityConfiguration extends WebSecurityConfigurerAdapter.
+15) дальше WebSecurityInitializer extends AbstractSecurityWebApplicationInitializer.
+16) и подключаем его в WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer.
+17) запускаем проверяем.
+
+"Это все для xml"
 11) Для их настройки в web.xml нужно прописать сам DispatcherServlet который будет принимать все запросы, смотреть через HandlerMapper какому контроллеру его нужно переслать,
 потом передает в HandlerAdapter который уже отдает контроллеру. Контроллер проводит всю логику -> идет к сервисам, они уже в репозиторий(ДАО) или еще куда-то например по Ресту что-то получает или передает.
 После контроллер получает данные, например из БД, создает new ModelAndView() и в него передает данные(Model) и как эти данные отображать(View), а также задает страничку вывода например Index.

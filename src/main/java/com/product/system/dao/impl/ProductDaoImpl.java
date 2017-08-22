@@ -1,6 +1,5 @@
 package com.product.system.dao.impl;
 
-import com.product.system.dao.AbstractGeneralDaoImpl;
 import com.product.system.dao.ProductDao;
 import com.product.system.entity.Product;
 import org.hibernate.SessionFactory;

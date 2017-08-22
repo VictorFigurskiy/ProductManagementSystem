@@ -7,18 +7,18 @@ import java.math.BigDecimal;
  * Created by Sonikb on 08.08.2017.
  */
 @Entity
-@Table(name = "products")
+@Table(name = "PRODUCTS")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
-    @Column(name = "manufacturer", nullable = false)
+    @Column(name = "MANUFACTURER", nullable = false)
     private String manufacturer;
-    @Column(name = "price", nullable = false)
+    @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
-    @Column(name = "description", nullable = false)
+    @Column(name = "DESCRIPTION", nullable = false)
     private String descriptions;
 
     public int getId() {

@@ -28,6 +28,11 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public User getByEmail(String email) {
+        return userDao.getByEmail(email);
+    }
+
+    @Transactional(readOnly = true)
     public List<User> getAll() {
         return userDao.getAll(User.class);
     }

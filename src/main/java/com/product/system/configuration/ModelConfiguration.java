@@ -22,7 +22,7 @@ import java.util.Properties;
 @ComponentScan({"com.product.system.dao", "com.product.system.services"})
 @PropertySource("classpath:hibernate.properties")
 @EnableTransactionManagement  // Включает использование транзакций
-public class HibernateConfig {
+public class ModelConfiguration {
 
     @Value("${db.url}")//spring expression language
     private String url;
@@ -40,6 +40,8 @@ public class HibernateConfig {
     private String hbm2ddlAuto;
     @Value("${hibernate.enable_lazy_load_no_trans}")
     private String enableLazyLoadOnTrans;
+    @Value("${current_session_context_class}")
+    private String current_session_context_class;
     @Value("${hibernate.connection.charSet}")
     private String charSet;
     @Value("${connection.characterEncoding}")
@@ -62,6 +64,7 @@ public class HibernateConfig {
         properties.put("hibernate.show_sql", showSql);
         properties.put("hibernate.hbm2ddl.auto", hbm2ddlAuto);
         properties.put("hibernate.enable_lazy_load_no_trans", enableLazyLoadOnTrans);
+        properties.put("current_session_context_class",current_session_context_class);
         properties.put("hibernate.connection.charSet", charSet);
         properties.put("connection.characterEncoding", characterEncoding);
         return properties;

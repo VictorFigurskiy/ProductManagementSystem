@@ -8,18 +8,23 @@ import javax.persistence.*;
  * Created by Sonikb on 08.08.2017.
  */
 @Entity
-@Table(name = "Users")
+@Table(name = "USERS")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "first_name")
+    @Column(name = "FIRST_NAME")
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "LAST_NAME")
     private String lastName;
+    @Column(name = "PASSWORD")
     private String password;
-    @Transient
+    @Column(name = "EMAIL")
+    private String email;
+//    @Transient
+    @Column(name = "ADMIN",columnDefinition = "BOOLEAN")
     private boolean isAdmin;
+
 
     public Integer getId() {
         return id;
@@ -53,6 +58,14 @@ public class User {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -68,6 +81,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';
     }

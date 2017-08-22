@@ -1,5 +1,6 @@
-package com.product.system.dao;
+package com.product.system.dao.impl;
 
+import com.product.system.dao.GeneralDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,10 @@ import java.util.List;
 public abstract class AbstractGeneralDaoImpl<K extends Serializable, V> implements GeneralDao<K, V> {
 
 
-//    private final Class<V> persistentClass;
+//    private Class<V> persistentClass;
 //
 //    @SuppressWarnings("unchecked")
-//    public AbstractGeneralDaoImpl() {    This how we can represent this Class<? extends V> entityClass in another way.
+//    public AbstractGeneralDaoImpl() {   // This how we can represent this Class<? extends V> entityClass in another way.
 //        this.persistentClass = (Class<V>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
 //    }
 
