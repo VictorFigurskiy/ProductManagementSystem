@@ -42,9 +42,8 @@ public class ProductController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ModelAndView save(@ModelAttribute("productFromPage") Product product) {
-        ModelAndView modelAndView = new ModelAndView();
         productService.save(product);
-        System.out.println("Новый продукт успешно добавлен!");
+        ModelAndView modelAndView = new ModelAndView();
         List<Product> productList = productService.getAll();
         modelAndView.addObject("productList", productList);
         modelAndView.setViewName("products");

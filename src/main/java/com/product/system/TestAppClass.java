@@ -71,13 +71,11 @@ public class TestAppClass {
 class Test{
     public static void main(String[] args) {
         try(AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ModelConfiguration.class)){
-            ProductService productService = context.getBean(ProductService.class);
-            Product product = new Product();
-            product.setName("Утюг");
-            product.setDescriptions("Хреновый утюг");
-            product.setManufacturer("Совок");
-            product.setPrice(new BigDecimal(12));
-            productService.save(product);
+            UserService userService = context.getBean(UserService.class);
+            User userVic = userService.getById(1);
+            User userSerg = userService.getById(2);
+
+            System.out.println(userSerg);
         }
     }
 }

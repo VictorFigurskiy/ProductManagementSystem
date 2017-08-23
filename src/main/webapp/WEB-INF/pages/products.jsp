@@ -7,8 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
@@ -37,8 +37,7 @@
                 <td>${product.price}</td>
                 <sec:authorize access="hasRole('ADMIN')">
                 <td>
-                    <form action="/product/delete${product.id}" method="get"><input type="submit" value="Удалить">
-                    </form>
+                    <form action="/product/delete${product.id}" method="get"><input type="submit" value="Удалить"></form>
                 </td>
                 <td>
                     <form action="/product/update_product${product.id}" method="get"><input type="submit"
@@ -57,6 +56,6 @@
         </form>
     </div>
 </sec:authorize>
-<form action="../" method="get"><input type="submit" value="Назад на главную"></form>
+<form action="${pageContext.request.contextPath}/main" method="get"><input type="submit" value="Назад на главную"></form>
 </body>
 </html>

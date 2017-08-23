@@ -6,8 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf8" %>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
@@ -15,7 +16,7 @@
     <title>new product</title>
 </head>
 <body>
-<div>
+<div align="center">
     <h3>Для добавления товаров:</h3>
     <form:form modelAttribute="productFromPage" method="post" action="/product/save">
         <p><label>Введите название продукта:<br>
@@ -31,3 +32,8 @@
 </div>
 </body>
 </html>
+
+<%--<div> The same thing will work fine with plain HTML without adding new Object in /validate--%>
+    <%--<label>Login</label>--%>
+    <%--<input type="text" id="login" name="login"/>--%>
+<%--</div>--%>

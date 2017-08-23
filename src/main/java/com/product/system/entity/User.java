@@ -3,12 +3,13 @@ package com.product.system.entity;
 import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Sonikb on 08.08.2017.
  */
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,11 @@ public class User {
 //    @Transient
     @Column(name = "ADMIN",columnDefinition = "BOOLEAN")
     private boolean isAdmin;
-
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinTable(name = "user_roles",
+                    joinColumns = @JoinColumn(name = "USER_ID"),
+                    inverseJoinColumns = @JoinColumn(name = "ROLE_ID") )
+    private Set<UserRole> userRoles;
 
     public Integer getId() {
         return id;
@@ -74,6 +79,14 @@ public class User {
         isAdmin = admin;
     }
 
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -83,6 +96,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", isAdmin=" + isAdmin +
+                ", userRoles=" + userRoles +
                 '}';
     }
 }

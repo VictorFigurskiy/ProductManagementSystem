@@ -13,12 +13,15 @@ import org.springframework.web.servlet.View;
 @RequestMapping(value = "/")
 public class WelcomeController {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String home(){
-        return "index";
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String welcome(){
+        return "welcome";
     }
 
-
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String main(){
+        return "main";
+    }
 
     @RequestMapping(value = "/logout",method = RequestMethod.POST)
     public String logout() {

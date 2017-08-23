@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * Created by Sonikb on 08.08.2017.
  */
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

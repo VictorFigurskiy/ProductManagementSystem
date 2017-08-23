@@ -1,7 +1,8 @@
 package com.product.system.services;
 
+import com.product.system.entity.UserRole;
 import org.springframework.security.core.GrantedAuthority;
-import com.product.system.entity.User;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Sonikb on 16.08.2017.
@@ -23,15 +26,26 @@ public class UserDetailedServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userService.getByEmail(email);
+        com.product.system.entity.User user = userService.getByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User not exist!!!");
         }
 
-        return new UserDetailsExt(user);
+        String[] roles = user.getUserRoles()
+                .stream()
+                .map(UserRole::getRoleType)
+                .toArray(String[]::new);
+
+        return User.withUsername(user.getEmail())
+                .password(user.getPassword())
+                .roles(roles)
+                .build();
+//        return new UserDetailsExt(user); // this is for the variant lower
     }
 
-    private static class UserDetailsExt implements UserDetails {
+
+    // Another way to create SpringUser with grantedAuthorities roles(this example is on boolean isAdmin)
+/*    private static class UserDetailsExt implements UserDetails {
         private User user;
         private Collection<SimpleGrantedAuthority> grantedAuthorities;
 
@@ -78,5 +92,5 @@ public class UserDetailedServiceImpl implements UserDetailsService {
         public boolean isEnabled() {
             return true;
         }
-    }
+    }*/
 }

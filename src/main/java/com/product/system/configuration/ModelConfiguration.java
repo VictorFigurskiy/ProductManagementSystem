@@ -36,6 +36,8 @@ public class ModelConfiguration {
     private String dialect;
     @Value("${hibernate.show_sql}")
     private String showSql;
+    @Value("${hibernate.format_sql}")
+    private String formatSql;
     @Value("${hibernate.hbm2ddl.auto}")
     private String hbm2ddlAuto;
     @Value("${hibernate.enable_lazy_load_no_trans}")
@@ -47,7 +49,8 @@ public class ModelConfiguration {
     @Value("${connection.characterEncoding}")
     private String characterEncoding;
 
-    @Bean(destroyMethod = "close") // (destroyMethod = "close") данный бин вызовет метод close() при уничтожении класса(при завершении работы)
+    @Bean(destroyMethod = "close")
+    // (destroyMethod = "close") данный бин вызовет метод close() при уничтожении класса(при завершении работы)
     public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setUrl(url);
@@ -62,9 +65,10 @@ public class ModelConfiguration {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", dialect);
         properties.put("hibernate.show_sql", showSql);
+        properties.put("hibernate.format_sql", formatSql);
         properties.put("hibernate.hbm2ddl.auto", hbm2ddlAuto);
         properties.put("hibernate.enable_lazy_load_no_trans", enableLazyLoadOnTrans);
-        properties.put("current_session_context_class",current_session_context_class);
+        properties.put("current_session_context_class", current_session_context_class);
         properties.put("hibernate.connection.charSet", charSet);
         properties.put("connection.characterEncoding", characterEncoding);
         return properties;
@@ -81,7 +85,7 @@ public class ModelConfiguration {
 
     @Autowired // но если внутри то в данном случае @Autowired не обязателен
     @Bean
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         return new HibernateTransactionManager(sessionFactory);
     }
 
