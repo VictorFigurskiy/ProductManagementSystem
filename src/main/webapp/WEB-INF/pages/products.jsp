@@ -15,8 +15,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title>Products</title>
 </head>
-<body>
-<div>
+<body style="background:whitesmoke">
+<div style="padding-top: 5%">
     <h2 align="center">Таблица товаров</h2>
     <table border="1" width="800" align="center" cellpadding="10">
         <tr align="center">
@@ -36,26 +36,30 @@
                 <td>${product.manufacturer}</td>
                 <td>${product.price}</td>
                 <sec:authorize access="hasRole('ADMIN')">
-                <td>
-                    <form action="/product/delete${product.id}" method="get"><input type="submit" value="Удалить"></form>
-                </td>
-                <td>
-                    <form action="/product/update_product${product.id}" method="get"><input type="submit"
-                                                                                            value="Изменить"></form>
-                </td>
+                    <td>
+                        <form action="/product/delete${product.id}" method="get"><input type="submit" value="Удалить">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/product/update_product${product.id}" method="get"><input type="submit"
+                                                                                                value="Изменить"></form>
+                    </td>
                 </sec:authorize>
             </tr>
         </c:forEach>
     </table>
-</div>
-<sec:authorize access="hasRole('ADMIN')"> This is only admins button</sec:authorize>
+</div >
 <sec:authorize access="hasRole('ADMIN')">
-    <div>
+    <div align="center">
         <form action="${pageContext.request.contextPath}/product/validate" method="get">
-            <input type="submit" value="Добавить новый продукт"/>
+            <input type="submit" value="Добавить новый продукт" align="center"/>
         </form>
     </div>
 </sec:authorize>
-<form action="${pageContext.request.contextPath}/main" method="get"><input type="submit" value="Назад на главную"></form>
+<div align="center">
+    <form action="${pageContext.request.contextPath}/main" method="get">
+        <input type="submit" value="Назад на главную" align="center">
+    </form>
+</div>
 </body>
 </html>

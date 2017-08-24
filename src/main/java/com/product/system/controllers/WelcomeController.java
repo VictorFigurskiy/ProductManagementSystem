@@ -13,12 +13,12 @@ import org.springframework.web.servlet.View;
 @RequestMapping(value = "/")
 public class WelcomeController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String welcome(){
         return "welcome";
     }
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequestMapping(value = {"/main","/login?logout","/login?error"}, method = RequestMethod.GET)
     public String main(){
         return "main";
     }
@@ -28,4 +28,5 @@ public class WelcomeController {
         // http://localhost:8080/login?logout
         return "redirect:/login?logout";
     }
+
 }

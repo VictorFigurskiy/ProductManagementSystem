@@ -10,26 +10,31 @@
 <head>
     <title>Register page</title>
 </head>
-<body>
-<div align="center">
+<body style="background:whitesmoke">
+<div align="center" style="padding-top: 12%">
+    <h3 align="center">Форма регистрации пользователя</h3>
     <form method="post" action="/register">
-        <div>
-            <label>Имя пользователя</label>
-            <input type="text" id="firstName" name="firstName" size="30" maxlength="30">
-        </div>
-        <div>
-            <label>Фамилия пользователя</label>
-            <input type="text" id="lastName" name="lastName" size="30" maxlength="30">
-        </div>
-        <div>
-            <label>Пароль</label>
-            <input type="password" id="password" name="password" size="30" maxlength="30">
-        </div>
-        <div>
-            <label>Email</label>
-            <input type="email" id="email" name="email" size="30" maxlength="30">
-        </div>
-        <input type="submit" width="30" value="Зарегистрировать">
+        <table align="center">
+            <tr align="center">
+                <th align="left">Имя пользователя</th>
+                <td><input type="text" id="firstName" name="firstName" size="30" maxlength="30"></td>
+            </tr>
+            <tr align="center">
+                <th align="left">Фамилия пользователя</th>
+                <td><input type="text" id="lastName" name="lastName" size="30" maxlength="30"></td>
+            </tr>
+            <tr align="center">
+                <th align="left">Email</th>
+                <td><input type="email" id="email" name="email" size="30" maxlength="30"></td>
+            </tr>
+            <tr align="center">
+                <th align="left">Пароль</th>
+                <td><input type="password" id="password" name="password" size="30" maxlength="30"></td>
+            </tr>
+            <tr align="center">
+            <td colspan="2"><input type="submit" width="30" value="Зарегистрировать"></td>
+            </tr>
+        </table>
     </form>
 </div>
 </body>

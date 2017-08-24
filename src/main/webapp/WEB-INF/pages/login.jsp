@@ -14,23 +14,43 @@
 <head>
     <title>Login page</title>
 </head>
-<body>
-<div align="right">
-    <form action="/registration" method="get">
-        <input type="submit" value="Зарегистрироватся" width="30">
-    </form>
-</div>
-<div align="center">
-    <c:url value="/j_spring_security_check" var="loginUrl"/>
-    <form action="${loginUrl}" method="post">
-        <h2 align="center">Пожалуйста введите данные для логина:</h2>
-        <h4 align="center">Введите ваш Email:</h4>
-        <input type="email" name="j_username" placeholder="Email address" required autofocus value="email@email.com">
-        <h4 align="center">Введите ваш пароль:</h4>
-        <input type="password" name="j_password" placeholder="Password" required autofocus value="1234"><br>
-        <button type="submit">Войти</button>
-    </form>
-</div>
+<body style="background:whitesmoke">
+<div style="padding-top: 12%">
+    <table border="3" align="center" cellpadding="10">
+        <tr>
+            <td>
+                <div align="center">
+                    <c:url value="/j_spring_security_check" var="loginUrl"/>
+                    <form action="${loginUrl}" method="post">
+                        <table width="450" align="center" cellpadding="10">
+                            <tr align="center">
+                                <th colspan="2"><h2 align="center">Пожалуйста введите данные для входа:</h2></th>
+                            </tr>
+                            <tr align="center">
+                                <th>Введите ваш Email:</th>
+                                <td><input type="email" name="j_username" placeholder="Email address" required autofocus></td>
+                            </tr>
+                            <tr align="center">
+                                <th>Введите ваш пароль:</th>
+                                <td><input type="password" name="j_password" placeholder="Password" required autofocus></td>
+                            </tr>
+                            <tr align="center">
+                                <td colspan="2">
+                                    <button type="submit">Войти</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
 
+                    <div align="center">
+                        <form action="/registration" method="get">
+                            <input type="submit" value="Зарегистрироватся" width="30">
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

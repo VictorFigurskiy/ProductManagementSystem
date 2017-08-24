@@ -15,8 +15,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title>Welcome!</title>
 </head>
-<body>
-<div align="center">
+<body style="background:whitesmoke">
+<div align="center" style="padding-top: 12%">
     <form:form action="/product/list" method="get">
         <input type="submit" value="Список товаров">
     </form:form>

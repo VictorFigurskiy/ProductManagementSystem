@@ -14,17 +14,20 @@
 <head>
     <title>Welcome Page</title>
 </head>
-<body>
-<div align="center"><h1>Добро пожаловать</h1></div>
+<body  style="background:whitesmoke">
+
+<div align="center" style="padding-top: 12%">
+    <h1>Добро пожаловать</h1>
+</div>
 
 <div align="center">
     <form action="/main" method="get">
-        <input type="submit" value="Залогинится" width="30">
+        <input type="submit" value="Залогинится">
     </form>
 </div>
 <div align="center">
     <form action="/registration" method="get">
-        <input type="submit" value="Зарегистрироватся" width="30">
+        <input type="submit" value="Зарегистрироватся">
     </form>
 </div>
 

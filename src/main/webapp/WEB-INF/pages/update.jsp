@@ -15,9 +15,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title>update</title>
 </head>
-<body>
-<div>
-    <h2 align="center">Таблица товаров</h2>
+<body style="background:whitesmoke">
+<div style="padding-top: 5%">
+    <h2 align="center">Таблица для изменения продукта</h2>
     <table border="1" width="800" align="center" cellpadding="10">
         <form:form action="/product/update" method="post" modelAttribute="updateProduct">
             <input hidden name="id" value="${product.id}">

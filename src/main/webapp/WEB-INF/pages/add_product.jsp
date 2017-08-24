@@ -15,8 +15,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title>new product</title>
 </head>
-<body>
-<div align="center">
+<body style="background:whitesmoke">
+<div align="center" style="padding-top: 8%">
     <h3>Для добавления товаров:</h3>
     <form:form modelAttribute="productFromPage" method="post" action="/product/save">
         <p><label>Введите название продукта:<br>

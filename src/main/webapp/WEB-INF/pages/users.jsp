@@ -15,8 +15,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title>Users</title>
 </head>
-<body>
-<div>
+<body style="background:whitesmoke">
+<div  style="padding-top: 5%">
     <h2 align="center">Таблица пользователей в системе</h2>
     <table border="1" width="800" align="center" cellpadding="10">
         <tr align = "center">
@@ -37,7 +37,7 @@
         </c:forEach>
     </table>
 </div>
-<form action="../main" method="get"><input type="submit" value="Назад на главную"></form>
+<form action="../main" method="get"><input type="submit" value="Назад на главную" align="center"></form>
 </body>
 </html>
 <%--<td><a href="${pageContext.request.contextPath}/delete?taskid=${task.id}">Delete</a></td>--%>
