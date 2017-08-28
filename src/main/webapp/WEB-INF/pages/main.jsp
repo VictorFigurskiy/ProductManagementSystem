@@ -15,7 +15,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title>Welcome!</title>
 </head>
-<body style="background:whitesmoke">
+<body style="background-image: url(https://www.kinogallery.com/img/wallpaper/kinogallery-wallpaper-0037301001450903712-1440x900.jpg);">
 <div align="center" style="padding-top: 12%">
     <form:form action="/product/list" method="get">
         <input type="submit" value="Список товаров">

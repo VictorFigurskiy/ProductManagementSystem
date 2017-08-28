@@ -18,7 +18,7 @@ public class WelcomeController {
         return "welcome";
     }
 
-    @RequestMapping(value = {"/main","/login?logout","/login?error"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String main(){
         return "main";
     }
