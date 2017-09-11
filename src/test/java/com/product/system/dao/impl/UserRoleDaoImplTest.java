@@ -1,15 +1,14 @@
 package com.product.system.dao.impl;
 
 import com.product.system.dao.UserRoleDAO;
+import com.product.system.dao.impl.config.TestConfiguration;
 import com.product.system.entity.UserRole;
 import com.product.system.entity.UserRoleType;
-import javassist.bytecode.annotation.NoSuchClassError;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;

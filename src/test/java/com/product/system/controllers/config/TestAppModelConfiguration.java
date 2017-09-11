@@ -1,4 +1,4 @@
-package com.product.system.controllers;
+package com.product.system.controllers.config;
 
 import com.product.system.services.ProductService;
 import com.product.system.services.UserDetailedServiceImpl;

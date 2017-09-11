@@ -1,6 +1,7 @@
 package com.product.system.dao.impl;
 
 import com.product.system.dao.UserDao;
+import com.product.system.dao.impl.config.TestConfiguration;
 import com.product.system.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

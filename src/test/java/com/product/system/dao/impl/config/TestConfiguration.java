@@ -1,4 +1,4 @@
-package com.product.system.dao.impl;
+package com.product.system.dao.impl.config;
 
 import org.hibernate.SessionFactory;
 import org.mockito.Mockito;

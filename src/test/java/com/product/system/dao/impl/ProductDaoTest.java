@@ -1,6 +1,7 @@
 package com.product.system.dao.impl;
 
 import com.product.system.dao.ProductDao;
+import com.product.system.dao.impl.config.TestConfiguration;
 import com.product.system.entity.Product;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

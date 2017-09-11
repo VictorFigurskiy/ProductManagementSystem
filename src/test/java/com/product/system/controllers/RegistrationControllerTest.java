@@ -3,6 +3,13 @@ package com.product.system.controllers;
 import com.product.system.configuration.MvcConfiguration;
 import com.product.system.configuration.SecurityConfiguration;
 import com.product.system.controllers.config.TestAppModelConfiguration;
+
+import com.product.system.dao.UserDao;
+import com.product.system.entity.User;
+import com.product.system.entity.UserRole;
+import com.product.system.services.UserRoleService;
+import com.product.system.services.UserService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +25,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.mockito.Mockito.mock;
+import java.util.HashSet;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
- * Created by Sonik on 09.09.2017.
+ * Created by Sonik on 11.09.2017.
  */
 @RunWith(value = SpringRunner.class)
 @WebAppConfiguration
@@ -29,48 +39,50 @@ import static org.mockito.Mockito.mock;
         TestAppModelConfiguration.class,
         MvcConfiguration.class,
         SecurityConfiguration.class})
-public class WelcomeControllerTest {
+public class RegistrationControllerTest {
 
     private MockMvc mvc;
 
     @Autowired
     private WebApplicationContext context;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserRoleService userRoleService;
+
+    private User user;
+    private UserRole userRole;
 
     @Before
     public void setUp() throws Exception {
+        user = mock(User.class);
+        userRole = mock(UserRole.class);
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(SecurityMockMvcConfigurers.springSecurity())
                 .build();
     }
 
-
     @Test
-    public void welcome() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/").with(SecurityMockMvcRequestPostProcessors.user("test").roles("USER")))
-                .andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/pages/welcome.jsp"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+    public void register() throws Exception {
+        when(userRoleService.getById(1)).thenReturn(userRole);
+        assertEquals(userRole, userRoleService.getById(1));
 
-    @Test
-    public void main() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.post("/main").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
-                .andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/pages/main.jsp"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+        HashSet<UserRole> userRoles = new HashSet<>();
+        userRoles.add(userRole);
+        User newUser = new User();
+        newUser.setUserRoles(userRoles);
 
-    @Test
-    public void mainForbidden() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.post("/main").with(SecurityMockMvcRequestPostProcessors.user("test").roles("USER")))
-                .andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/pages/main.jsp"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+        doAnswer(invocation -> null).when(userService).save(newUser);
 
-    @Test
-    public void logout() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.post("/logout").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/login?logout"))
+        userService.save(newUser);
+
+        verify(userService).save(newUser);
+
+        mvc.perform(MockMvcRequestBuilders.post("/register").with(SecurityMockMvcRequestPostProcessors.user("test").roles("USER")))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
                 .andExpect(MockMvcResultMatchers.status().isFound());
+
     }
 
 }

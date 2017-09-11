@@ -1,6 +1,5 @@
 package com.product.system.controllers;
 
-import com.product.system.entity.Product;
 import com.product.system.entity.User;
 import com.product.system.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public class UserController {
 
     // localhost:8080/user/list
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView productsList(){
+    public ModelAndView userList(){
         ModelAndView modelAndView = new ModelAndView();
         List<User> userList = userService.getAll();
         modelAndView.addObject("userList",userList);
