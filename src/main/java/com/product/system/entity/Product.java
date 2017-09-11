@@ -21,11 +21,11 @@ public class Product {
     @Column(name = "DESCRIPTION", nullable = false)
     private String descriptions;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -59,6 +59,31 @@ public class Product {
 
     public void setDescriptions(String descriptions) {
         this.descriptions = descriptions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (getId() != null ? !getId().equals(product.getId()) : product.getId() != null) return false;
+        if (getName() != null ? !getName().equals(product.getName()) : product.getName() != null) return false;
+        if (getManufacturer() != null ? !getManufacturer().equals(product.getManufacturer()) : product.getManufacturer() != null)
+            return false;
+        if (getPrice() != null ? !getPrice().equals(product.getPrice()) : product.getPrice() != null) return false;
+        return getDescriptions() != null ? getDescriptions().equals(product.getDescriptions()) : product.getDescriptions() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getManufacturer() != null ? getManufacturer().hashCode() : 0);
+        result = 31 * result + (getPrice() != null ? getPrice().hashCode() : 0);
+        result = 31 * result + (getDescriptions() != null ? getDescriptions().hashCode() : 0);
+        return result;
     }
 
     @Override

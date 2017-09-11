@@ -57,7 +57,7 @@
     </div>
 </sec:authorize>
 <div align="center">
-    <form action="${pageContext.request.contextPath}/main" method="get">
+    <form action="${pageContext.request.contextPath}/main" method="post">
         <input type="submit" value="Назад на главную" align="center">
     </form>
 </div>

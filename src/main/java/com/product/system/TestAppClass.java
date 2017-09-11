@@ -16,7 +16,7 @@ public class TestAppClass {
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ModelConfiguration.class)) {
             UserService userService = ctx.getBean(UserService.class);
-            User user = userService.getById(1);
+            User user = userService.getById(-1);
 
             System.out.println(user);
 

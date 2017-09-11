@@ -37,7 +37,7 @@
         </c:forEach>
     </table>
 </div>
-<form action="../main" method="get"><input type="submit" value="Назад на главную" align="center"></form>
+<form action="../main" method="post"><input type="submit" value="Назад на главную" align="center"></form>
 </body>
 </html>
 <%--<td><a href="${pageContext.request.contextPath}/delete?taskid=${task.id}">Delete</a></td>--%>

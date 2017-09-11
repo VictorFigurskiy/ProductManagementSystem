@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 // указываем страницу с формой логина
                 .loginPage("/login")
+                .successForwardUrl("/main")
                 // указываем action с формы логина
                 .loginProcessingUrl("/j_spring_security_check")
                 // указываем URL при неудачном логине

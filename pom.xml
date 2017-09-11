@@ -25,6 +25,10 @@
         <servlet.jstl.version>1.2</servlet.jstl.version>
         <security.taglibs>4.2.3.RELEASE</security.taglibs>
         <jackson.version>2.9.0</jackson.version>
+        <junit4.test.version>4.12</junit4.test.version>
+        <mockito.core.version>2.9.0</mockito.core.version>
+        <spring.test.version>4.3.9.RELEASE</spring.test.version>
+        <spring.security.version>4.2.3.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>
@@ -132,6 +136,32 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- For Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit4.test.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.test.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>${spring.security.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

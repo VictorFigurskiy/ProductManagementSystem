@@ -34,6 +34,9 @@
             <tr align="center">
             <td colspan="2"><input type="submit" width="30" value="Зарегистрировать"></td>
             </tr>
+            <tr align="center">
+                <td colspan="2"><form action="../welcome" method="get"><input type="submit" value="Назад на главную" align="center"></form></td>
+            </tr>
         </table>
     </form>
 </div>

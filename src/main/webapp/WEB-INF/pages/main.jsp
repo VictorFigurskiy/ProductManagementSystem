@@ -15,8 +15,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title>Welcome!</title>
 </head>
-<body style="background-image: url(https://www.kinogallery.com/img/wallpaper/kinogallery-wallpaper-0037301001450903712-1440x900.jpg);">
+<body  style="background:whitesmoke">
+<%--style="background-image: url(https://www.kinogallery.com/img/wallpaper/kinogallery-wallpaper-0037301001450903712-1440x900.jpg);"--%>
 <div align="center" style="padding-top: 12%">
+    <h2>Вы вошли как: <sec:authentication property="principal.username"/></h2>
     <form:form action="/product/list" method="get">
         <input type="submit" value="Список товаров">
     </form:form>

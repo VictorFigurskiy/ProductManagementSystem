@@ -18,7 +18,7 @@ public class WelcomeController {
         return "welcome";
     }
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/main", method = RequestMethod.POST)
     public String main(){
         return "main";
     }
