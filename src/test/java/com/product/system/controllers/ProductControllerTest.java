@@ -142,7 +142,6 @@ public class ProductControllerTest {
     @Test
     public void update() throws Exception {
         when(product.getName()).thenReturn("Test product");
-        when(productService.getAll()).thenReturn(Collections.singletonList(null));
 
         doAnswer(invocation -> {
             Product product1 = invocation.getArgument(0);
@@ -150,9 +149,11 @@ public class ProductControllerTest {
             return null;
         }).when(productService).update(product);
 
-        productService.update(product);  // TODO CHECK AND FINISH
+        productService.update(product);
 
         verify(productService, atLeastOnce()).update(product);
+
+        when(productService.getAll()).thenReturn(Collections.singletonList(product));
 
 //        verify(productService, times(1)).getAll();
 
