@@ -1,7 +1,7 @@
 # ProductManagementSystem
-First Spring project
+**First Spring project**
 
-Used technologies:
+**Used technologies:**
 
   -  Spring MVC
   -  Spring Security
@@ -12,7 +12,7 @@ Used technologies:
   -  JSP(JSTL), SpringTagLib, SpringSecurityTabLib
   -  HTML
 
-Rescources:
+**Rescources:**
 
     scr/rescources/db_script/product_management.sql - (DataBase structure and tables script)
 
