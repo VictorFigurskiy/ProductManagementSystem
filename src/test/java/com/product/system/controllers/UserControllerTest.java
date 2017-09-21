@@ -61,7 +61,7 @@ public class UserControllerTest {
     public void userList() throws Exception {
         when(userService.getAll()).thenReturn(Collections.singletonList(userEntity));
 
-        mvc.perform(MockMvcRequestBuilders.get("/userEntity/list").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.get("/user/list").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("userList", CoreMatchers.equalTo(Collections.singletonList(userEntity))))
                 .andExpect(MockMvcResultMatchers.view().name("users"));
@@ -82,7 +82,7 @@ public class UserControllerTest {
         UserEntity otherUserEntity = mock(UserEntity.class);
         when(userService.getAll()).thenReturn(Collections.singletonList(otherUserEntity));
 
-        mvc.perform(MockMvcRequestBuilders.get("/userEntity/delete1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.get("/user/delete1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("userList", CoreMatchers.equalTo(Collections.singletonList(otherUserEntity))))
                 .andExpect(MockMvcResultMatchers.view().name("users"));

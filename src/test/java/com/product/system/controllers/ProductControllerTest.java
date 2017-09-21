@@ -61,7 +61,7 @@ public class ProductControllerTest {
     public void productsList() throws Exception {
         when(productService.getAll()).thenReturn(Collections.singletonList(productEntity));
 
-        mvc.perform(MockMvcRequestBuilders.get("/productEntity/list").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.get("/product/list").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("productList", CoreMatchers.equalTo(Collections.singletonList(productEntity))))
                 .andExpect(MockMvcResultMatchers.view().name("products"));
@@ -69,7 +69,7 @@ public class ProductControllerTest {
 
     @Test
     public void validateProduct() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/productEntity/validate").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.get("/product/validate").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("productFromPage", new ProductEntity()))
                 .andExpect(MockMvcResultMatchers.view().name("add_product"));
@@ -77,11 +77,11 @@ public class ProductControllerTest {
 
     @Test
     public void save() throws Exception {
-        when(productEntity.getName()).thenReturn("Test ProductEntity");
+        when(productEntity.getName()).thenReturn("Test Product");
 
         doAnswer(invocation -> {
             ProductEntity productEntity1 = invocation.getArgument(0);
-            assertEquals("Test ProductEntity", productEntity1.getName());
+            assertEquals("Test Product", productEntity1.getName());
             return null;
         }).when(productService).save(productEntity);
 
@@ -91,7 +91,7 @@ public class ProductControllerTest {
 
         when(productService.getAll()).thenReturn(Collections.singletonList(productEntity));
 
-        mvc.perform(MockMvcRequestBuilders.post("/productEntity/save").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.post("/product/save").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("productList", CoreMatchers.equalTo(Collections.singletonList(productEntity))))
                 .andExpect(MockMvcResultMatchers.view().name("products"));
@@ -112,7 +112,7 @@ public class ProductControllerTest {
         ProductEntity otherProductEntity = mock(ProductEntity.class);
         when(productService.getAll()).thenReturn(Collections.singletonList(otherProductEntity));
 
-        mvc.perform(MockMvcRequestBuilders.get("/productEntity/delete1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.get("/product/delete1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("productList", CoreMatchers.equalTo(Collections.singletonList(otherProductEntity))))
                 .andExpect(MockMvcResultMatchers.view().name("products"));
@@ -122,10 +122,10 @@ public class ProductControllerTest {
     public void validateUser() throws Exception {
         when(productService.getById(1)).thenReturn(productEntity);
 
-        mvc.perform(MockMvcRequestBuilders.get("/productEntity/update_product1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.get("/product/update_product1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("updateProduct", new ProductEntity()))
-                .andExpect(MockMvcResultMatchers.model().attribute("productEntity", productEntity))
+                .andExpect(MockMvcResultMatchers.model().attribute("product", productEntity))
                 .andExpect(MockMvcResultMatchers.view().name("update"));
     }
 
@@ -133,18 +133,18 @@ public class ProductControllerTest {
     public void validateUserWithUserRole() throws Exception {
         when(productService.getById(1)).thenReturn(productEntity);
 
-        mvc.perform(MockMvcRequestBuilders.get("/productEntity/update_product1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("USER")))
+        mvc.perform(MockMvcRequestBuilders.get("/product/update_product1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("USER")))
                 .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
 
     @Ignore
     @Test
     public void update() throws Exception {
-        when(productEntity.getName()).thenReturn("Test productEntity");
+        when(productEntity.getName()).thenReturn("Test product");
 
         doAnswer(invocation -> {
             ProductEntity productEntity1 = invocation.getArgument(0);
-            assertEquals("Test productEntity", productEntity1.getName());
+            assertEquals("Test product", productEntity1.getName());
             return null;
         }).when(productService).update(productEntity);
 
@@ -156,7 +156,7 @@ public class ProductControllerTest {
 
 //        verify(productService, times(1)).getAll();
 
-        mvc.perform(MockMvcRequestBuilders.post("/productEntity/update").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.post("/product/update").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("productList", CoreMatchers.equalTo(Collections.singletonList(productEntity))))
                 .andExpect(MockMvcResultMatchers.view().name("products"));
