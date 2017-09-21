@@ -1,6 +1,6 @@
 package com.product.system.controllers;
 
-import com.product.system.entity.User;
+import com.product.system.entity.UserEntity;
 import com.product.system.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,8 +29,8 @@ public class UserController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView userList(){
         ModelAndView modelAndView = new ModelAndView();
-        List<User> userList = userService.getAll();
-        modelAndView.addObject("userList",userList);
+        List<UserEntity> userEntityList = userService.getAll();
+        modelAndView.addObject("userList", userEntityList);
         modelAndView.setViewName("users");
         return modelAndView;
     }
@@ -38,10 +38,10 @@ public class UserController {
     @RequestMapping(value = "/delete{id}", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable("id") String id){
         ModelAndView modelAndView = new ModelAndView();
-        User user = userService.getById(Integer.parseInt(id));
-        userService.remove(user);
-        List<User> userList = userService.getAll();
-        modelAndView.addObject("userList",userList);
+        UserEntity userEntity = userService.getById(Integer.parseInt(id));
+        userService.remove(userEntity);
+        List<UserEntity> userEntityList = userService.getAll();
+        modelAndView.addObject("userList", userEntityList);
         modelAndView.setViewName("users");
         return modelAndView;
     }

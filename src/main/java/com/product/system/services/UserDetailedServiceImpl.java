@@ -1,17 +1,11 @@
 package com.product.system.services;
 
-import com.product.system.entity.UserRole;
-import org.springframework.security.core.GrantedAuthority;
+import com.product.system.entity.UserEntity;
+import com.product.system.entity.UserRoleEntity;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Sonikb on 16.08.2017.
@@ -26,30 +20,30 @@ public class UserDetailedServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        com.product.system.entity.User user = userService.getByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not exist!!!");
+        UserEntity userEntity = userService.getByEmail(email);
+        if (userEntity == null) {
+            throw new UsernameNotFoundException("UserEntity not exist!!!");
         }
 
-        String[] roles = user.getUserRoles()
+        String[] roles = userEntity.getUserRoleEntities()
                 .stream()
-                .map(UserRole::getRoleType)
+                .map(UserRoleEntity::getRoleType)
                 .toArray(String[]::new);
 
-        return User.withUsername(user.getEmail())
-                .password(user.getPassword())
+        return User.withUsername(userEntity.getEmail())
+                .password(userEntity.getPassword())
                 .roles(roles)
                 .build();
-//        return new UserDetailsExt(user); // this is for the variant lower
+//        return new UserDetailsExt(userEntity); // this is for the variant lower
     }
 
 
     // Another way to create SpringUser with grantedAuthorities roles(this example is on boolean isAdmin)
 /*    private static class UserDetailsExt implements UserDetails {
-        private User user;
+        private UserEntity user;
         private Collection<SimpleGrantedAuthority> grantedAuthorities;
 
-        public UserDetailsExt(User user) {
+        public UserDetailsExt(UserEntity user) {
             this.user = user;
             this.grantedAuthorities = new ArrayList<>();
             if (user.isAdmin()) {

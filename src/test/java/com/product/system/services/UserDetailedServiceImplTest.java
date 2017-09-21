@@ -1,19 +1,14 @@
 package com.product.system.services;
 
 import com.product.system.dao.UserDao;
-import com.product.system.entity.User;
-import com.product.system.entity.UserRole;
+import com.product.system.entity.UserEntity;
+import com.product.system.entity.UserRoleEntity;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -27,13 +22,13 @@ public class UserDetailedServiceImplTest {
     private UserService userService;
     private UserDetailsService userDetailsService;
     private UserDao userDao;
-    private User user;
+    private UserEntity userEntity;
 
     @Before
     public void setUp() throws Exception {
-        user = mock(User.class);
-        when(user.getFirstName()).thenReturn("name");
-        when(user.getLastName()).thenReturn("lastName");
+        userEntity = mock(UserEntity.class);
+        when(userEntity.getFirstName()).thenReturn("name");
+        when(userEntity.getLastName()).thenReturn("lastName");
         userDao = mock(UserDao.class);
         userService = new UserService(userDao);
         userDetailsService = new UserDetailedServiceImpl(userService);
@@ -47,15 +42,15 @@ public class UserDetailedServiceImplTest {
 
     @Test
     public void loadUserByUsername() throws Exception {
-        Set<UserRole> roles = mock(Set.class);
-        UserRole userRole = mock(UserRole.class);
-        when(userRole.getRoleType()).thenReturn("USER");
-        roles.add(userRole);
+        Set<UserRoleEntity> roles = mock(Set.class);
+        UserRoleEntity userRoleEntity = mock(UserRoleEntity.class);
+        when(userRoleEntity.getRoleType()).thenReturn("USER");
+        roles.add(userRoleEntity);
 
-        when(user.getEmail()).thenReturn("email");
-        when(user.getPassword()).thenReturn("password");
-        when(user.getUserRoles()).thenReturn(roles);
-        when(userDao.getByEmail("email")).thenReturn(user);
+        when(userEntity.getEmail()).thenReturn("email");
+        when(userEntity.getPassword()).thenReturn("password");
+        when(userEntity.getUserRoleEntities()).thenReturn(roles);
+        when(userDao.getByEmail("email")).thenReturn(userEntity);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername("email");
         assertEquals("email", userDetails.getUsername());
@@ -68,14 +63,14 @@ public class UserDetailedServiceImplTest {
 
     @Test
     public void testFindOne() {
-        when(userDao.getByEmail("A")).thenReturn(user);
-        assertEquals(user, userService.getByEmail("A"));
+        when(userDao.getByEmail("A")).thenReturn(userEntity);
+        assertEquals(userEntity, userService.getByEmail("A"));
         verify(userDao, times(1)).getByEmail("A");
     }
 
     @Test
     public void testSave() {
-        userService.save(user);
-        verify(userDao, times(1)).save(user);
+        userService.save(userEntity);
+        verify(userDao, times(1)).save(userEntity);
     }
 }

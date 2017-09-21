@@ -2,7 +2,7 @@ package com.product.system.dao.impl;
 
 import com.product.system.dao.ProductDao;
 import com.product.system.dao.impl.config.TestConfiguration;
-import com.product.system.entity.Product;
+import com.product.system.entity.ProductEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,13 +30,13 @@ public class ProductDaoTest {
     private SessionFactory sessionFactory;
     private Session session;
     private ProductDao productDao;
-    private Product product;
+    private ProductEntity productEntity;
 
     @Before
     public void setUp() throws Exception {
         session = mock(Session.class);
         when(sessionFactory.getCurrentSession()).thenReturn(session);
-        product = mock(Product.class);
+        productEntity = mock(ProductEntity.class);
         productDao = new ProductDaoImpl(sessionFactory);
     }
 
@@ -48,43 +48,43 @@ public class ProductDaoTest {
 
     @Test
     public void testGetById() throws Exception {
-        when(session.get(Product.class, 1)).thenReturn(product);
-        when(product.getId()).thenReturn(1);
+        when(session.get(ProductEntity.class, 1)).thenReturn(productEntity);
+        when(productEntity.getId()).thenReturn(1);
 
-        assertEquals(product, productDao.getById(Product.class, 1));
-        assertEquals(1, (long) product.getId());
+        assertEquals(productEntity, productDao.getById(ProductEntity.class, 1));
+        assertEquals(1, (long) productEntity.getId());
 
-        verify(session, atLeast(1)).get(Product.class, 1);
-        verify(product, times(1)).getId();
+        verify(session, atLeast(1)).get(ProductEntity.class, 1);
+        verify(productEntity, times(1)).getId();
     }
 
     @Test(expected = NullPointerException.class)
     public void testGetByIdNull() throws Exception {
-        when(session.get(Product.class, 0)).thenReturn(null);
-        when(product.getId()).thenThrow(new NullPointerException());
+        when(session.get(ProductEntity.class, 0)).thenReturn(null);
+        when(productEntity.getId()).thenThrow(new NullPointerException());
 
-        assertEquals(null, productDao.getById(Product.class, 0));
+        assertEquals(null, productDao.getById(ProductEntity.class, 0));
 
-        verify(session, atMost(2)).get(Product.class, 0);
-        product.getId();
+        verify(session, atMost(2)).get(ProductEntity.class, 0);
+        productEntity.getId();
     }
 
     @Test
     public void testGetAll() throws Exception {
-        List<Product> mockList = mock(List.class);
-        when(mockList.get(0)).thenReturn(product);
+        List<ProductEntity> mockList = mock(List.class);
+        when(mockList.get(0)).thenReturn(productEntity);
         when(mockList.get(1)).thenReturn(null);
 
         Criteria criteria = mock(Criteria.class);
 
-        when(session.createCriteria(Product.class)).thenReturn(criteria);
+        when(session.createCriteria(ProductEntity.class)).thenReturn(criteria);
         when(criteria.list()).thenReturn(mockList);
 
-        assertEquals(mockList, productDao.getAll(Product.class));
+        assertEquals(mockList, productDao.getAll(ProductEntity.class));
         assertFalse(mockList.isEmpty());
         assertNull("Здесь должен быть null", mockList.get(1));
-        assertNotNull(mockList.get(0));
-        assertEquals(product, mockList.get(0));
+        assertNotNull("Здесь есть продукт",mockList.get(0));
+        assertEquals(productEntity, mockList.get(0));
 
         verify(criteria, times(1)).list();
         verify(mockList, atLeast(2)).get(0);
@@ -92,17 +92,17 @@ public class ProductDaoTest {
 
     @Test
     public void testSave() throws Exception {
-        when(product.getId()).thenReturn(1);
+        when(productEntity.getName()).thenReturn("test");
 
         doAnswer(invocation -> {
-            Product product1 = invocation.getArgument(0);
-            assertEquals((Integer) 1, product1.getId());
+            ProductEntity productEntity1 = invocation.getArgument(0);
+            assertEquals("test", productEntity1.getName());
             return null;
-        }).when(session).save(product);
+        }).when(session).save(productEntity);
 
-        productDao.save(product);
+        productDao.save(productEntity);
 
-        verify(session, atLeastOnce()).save(product);
+        verify(session, atLeastOnce()).save(productEntity);
     }
 
     @Test
@@ -110,24 +110,24 @@ public class ProductDaoTest {
         ProductDao dao = new ProductDaoImpl(sessionFactory);
         dao = spy(dao);
 
-        doAnswer(invocation -> null).when(dao).save(product);
+        doAnswer(invocation -> null).when(dao).save(productEntity);
 
-        dao.save(product);
+        dao.save(productEntity);
 
-        verify(dao, atLeastOnce()).save(product);
+        verify(dao, atLeastOnce()).save(productEntity);
     }
 
     @Test
     public void testUpdate() throws Exception {
-        doAnswer(invocation -> null).when(session).update(product);
-        productDao.update(product);
-        verify(session, timeout(100)).update(product);
+        doAnswer(invocation -> null).when(session).update(productEntity);
+        productDao.update(productEntity);
+        verify(session, timeout(100)).update(productEntity);
     }
 
     @Test
     public void testRemove() throws Exception {
-        doAnswer(invocation -> null).when(session).delete(product);
-        productDao.remove(product);
+        doAnswer(invocation -> null).when(session).delete(productEntity);
+        productDao.remove(productEntity);
         verify(session, times(1)).delete(any());
     }
 

@@ -2,7 +2,7 @@ package com.product.system.dao.impl;
 
 import com.product.system.dao.UserDao;
 import com.product.system.dao.impl.config.TestConfiguration;
-import com.product.system.entity.User;
+import com.product.system.entity.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -27,7 +27,7 @@ public class UserDaoImplTest {
     private SessionFactory sessionFactory;
     private Session session;
     private UserDao userDao;
-    private User user;
+    private UserEntity userEntity;
 
 
     @Before
@@ -35,20 +35,20 @@ public class UserDaoImplTest {
         session = mock(Session.class);
         when(sessionFactory.getCurrentSession()).thenReturn(session);
         userDao = new UserDaoImpl(sessionFactory);
-        user = mock(User.class);
+        userEntity = mock(UserEntity.class);
     }
 
     @Test
     public void getByEmail() throws Exception {
-        when(user.getEmail()).thenReturn("email");
+        when(userEntity.getEmail()).thenReturn("email");
 
-        Query<User> query = mock(Query.class);
-        when(session.createQuery("select user from User user where user.email = :email", User.class)).thenReturn(query);
-        Query<User> userQuery = mock(Query.class);
+        Query<UserEntity> query = mock(Query.class);
+        when(session.createQuery("select user from UserEntity user where user.email = :email", UserEntity.class)).thenReturn(query);
+        Query<UserEntity> userQuery = mock(Query.class);
         when(query.setParameter("email", "email")).thenReturn(userQuery);
-        when(userQuery.getSingleResult()).thenReturn(user);
+        when(userQuery.getSingleResult()).thenReturn(userEntity);
 
-        assertEquals(user, userDao.getByEmail("email"));
+        assertEquals(userEntity, userDao.getByEmail("email"));
         verify(userQuery, atLeast(1)).getSingleResult();
     }
 

@@ -1,7 +1,5 @@
 package com.product.system.entity;
 
-import org.springframework.context.annotation.Bean;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,7 +8,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,7 +27,7 @@ public class User {
     @JoinTable(name = "user_roles",
                     joinColumns = @JoinColumn(name = "USER_ID"),
                     inverseJoinColumns = @JoinColumn(name = "ROLE_ID") )
-    private Set<UserRole> userRoles;
+    private Set<UserRoleEntity> userRoleEntities;
 
     public Integer getId() {
         return id;
@@ -79,24 +77,24 @@ public class User {
         isAdmin = admin;
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
+    public Set<UserRoleEntity> getUserRoleEntities() {
+        return userRoleEntities;
     }
 
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public void setUserRoleEntities(Set<UserRoleEntity> userRoleEntities) {
+        this.userRoleEntities = userRoleEntities;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserEntity{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", isAdmin=" + isAdmin +
-                ", userRoles=" + userRoles +
+                ", userRoleEntities=" + userRoleEntities +
                 '}';
     }
 }

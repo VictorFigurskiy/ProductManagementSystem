@@ -10,7 +10,7 @@
 6) Прописываем конфигурацию Hibernate / JPA через Джава класс или spring.xml.
 7) нам нужны BasicDataSource dataSource() для задания настроек базы(url, userName, password, JDBC-driver),
 LocalSessionFactoryBean sessionFactory(DataSource dataSource) в который нужно передать созданный dataSource,
-указать пакет для поиска бинов bean.setPackagesToScan("com.product.system.entity");,
+указать пакет для поиска бинов bean.setPackagesToScan("com.productEntity.system.entity");,
 и задать настройки самого Гибернейта(такие как диалект, отображение SQL и так далее) bean.setHibernateProperties(hibernateProperties());
 ну и последнее настраиваем HibernateTransactionManager transactionManager(SessionFactory sessionFactory) в котором просто создаем transactionManager и передаем ему sessionFactory.
 8) Создаем слой сервисов @Service в нем делегируем методы DAO и делаем над методами @Transactional(что указывает спринг и гибернейт что здесь все выполняется транзакционно ACID),
@@ -64,7 +64,7 @@ LocalSessionFactoryBean sessionFactory(DataSource dataSource) в который 
 
 
     <mvc:annotation-driven/> - тут важно вибрать именно для mvc! - это для срабатывания аннотаций типа @Controller @RequestMapping
-    <context:component-scan base-package="com.product.system"/> - глобальный пакет для поиска аннотаций нужных спрингу для создания аннотаций.
+    <context:component-scan base-package="com.productEntity.system"/> - глобальный пакет для поиска аннотаций нужных спрингу для создания аннотаций.
     <mvc:view-controller path="/" view-name="users-page"/> - это здается после создания InternalResourceViewResolver для указания страницы по умолчанию.
 
     Это уже нужно чтобы указать спрингу где искать странички, именно InternalResourceViewResolver будет смотреть какую вызывать:

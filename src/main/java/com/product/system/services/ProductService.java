@@ -1,7 +1,7 @@
 package com.product.system.services;
 
 import com.product.system.dao.ProductDao;
-import com.product.system.entity.Product;
+import com.product.system.entity.ProductEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,27 +22,27 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Product getById(Integer id) {
-        return productDao.getById(Product.class, id);
+    public ProductEntity getById(Integer id) {
+        return productDao.getById(ProductEntity.class, id);
     }
 
     @Transactional(readOnly = true)
-    public List<Product> getAll() {
-        return productDao.getAll(Product.class);
+    public List<ProductEntity> getAll() {
+        return productDao.getAll(ProductEntity.class);
     }
 
     @Transactional
-    public void save(Product entity) {
+    public void save(ProductEntity entity) {
         productDao.save(entity);
     }
 
     @Transactional
-    public void update(Product entity) {
+    public void update(ProductEntity entity) {
         productDao.update(entity);
     }
 
     @Transactional
-    public void remove(Product entity) {
+    public void remove(ProductEntity entity) {
         productDao.remove(entity);
     }
 }

@@ -1,11 +1,11 @@
 package com.product.system.dao;
 
-import com.product.system.entity.User;
+import com.product.system.entity.UserEntity;
 
 /**
  * Created by Sonikb on 08.08.2017.
  */
-public interface UserDao extends GeneralDao<Integer,User> {
+public interface UserDao extends GeneralDao<Integer,UserEntity> {
 
-    User getByEmail(String email);
+    UserEntity getByEmail(String email);
 }

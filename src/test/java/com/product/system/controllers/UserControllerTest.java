@@ -3,8 +3,7 @@ package com.product.system.controllers;
 import com.product.system.configuration.MvcConfiguration;
 import com.product.system.configuration.SecurityConfiguration;
 import com.product.system.controllers.config.TestAppModelConfiguration;
-import com.product.system.entity.Product;
-import com.product.system.entity.User;
+import com.product.system.entity.UserEntity;
 import com.product.system.services.UserService;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
@@ -47,11 +46,11 @@ public class UserControllerTest {
     @Autowired
     private UserService userService;
 
-    private User user;
+    private UserEntity userEntity;
 
     @Before
     public void setUp() throws Exception {
-        user = mock(User.class);
+        userEntity = mock(UserEntity.class);
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(SecurityMockMvcConfigurers.springSecurity())
@@ -60,32 +59,32 @@ public class UserControllerTest {
 
     @Test
     public void userList() throws Exception {
-        when(userService.getAll()).thenReturn(Collections.singletonList(user));
+        when(userService.getAll()).thenReturn(Collections.singletonList(userEntity));
 
-        mvc.perform(MockMvcRequestBuilders.get("/user/list").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.get("/userEntity/list").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("userList", CoreMatchers.equalTo(Collections.singletonList(user))))
+                .andExpect(MockMvcResultMatchers.model().attribute("userList", CoreMatchers.equalTo(Collections.singletonList(userEntity))))
                 .andExpect(MockMvcResultMatchers.view().name("users"));
     }
 
     @Test
     public void delete() throws Exception {
-        when(userService.getById(1)).thenReturn(user);
-        assertEquals(user, userService.getById(1));
+        when(userService.getById(1)).thenReturn(userEntity);
+        assertEquals(userEntity, userService.getById(1));
         verify(userService, times(1)).getById(1);
 
-        doAnswer(invocation -> null).when(userService).remove(user);
+        doAnswer(invocation -> null).when(userService).remove(userEntity);
 
-        userService.remove(user);
+        userService.remove(userEntity);
 
-        verify(userService, atMost(1)).remove(user);
+        verify(userService, atMost(1)).remove(userEntity);
 
-        User otherUser = mock(User.class);
-        when(userService.getAll()).thenReturn(Collections.singletonList(otherUser));
+        UserEntity otherUserEntity = mock(UserEntity.class);
+        when(userService.getAll()).thenReturn(Collections.singletonList(otherUserEntity));
 
-        mvc.perform(MockMvcRequestBuilders.get("/user/delete1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
+        mvc.perform(MockMvcRequestBuilders.get("/userEntity/delete1").with(SecurityMockMvcRequestPostProcessors.user("test").roles("ADMIN")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("userList", CoreMatchers.equalTo(Collections.singletonList(otherUser))))
+                .andExpect(MockMvcResultMatchers.model().attribute("userList", CoreMatchers.equalTo(Collections.singletonList(otherUserEntity))))
                 .andExpect(MockMvcResultMatchers.view().name("users"));
     }
 

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "products")
-public class Product {
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -66,14 +66,14 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Product product = (Product) o;
+        ProductEntity productEntity = (ProductEntity) o;
 
-        if (getId() != null ? !getId().equals(product.getId()) : product.getId() != null) return false;
-        if (getName() != null ? !getName().equals(product.getName()) : product.getName() != null) return false;
-        if (getManufacturer() != null ? !getManufacturer().equals(product.getManufacturer()) : product.getManufacturer() != null)
+        if (getId() != null ? !getId().equals(productEntity.getId()) : productEntity.getId() != null) return false;
+        if (getName() != null ? !getName().equals(productEntity.getName()) : productEntity.getName() != null) return false;
+        if (getManufacturer() != null ? !getManufacturer().equals(productEntity.getManufacturer()) : productEntity.getManufacturer() != null)
             return false;
-        if (getPrice() != null ? !getPrice().equals(product.getPrice()) : product.getPrice() != null) return false;
-        return getDescriptions() != null ? getDescriptions().equals(product.getDescriptions()) : product.getDescriptions() == null;
+        if (getPrice() != null ? !getPrice().equals(productEntity.getPrice()) : productEntity.getPrice() != null) return false;
+        return getDescriptions() != null ? getDescriptions().equals(productEntity.getDescriptions()) : productEntity.getDescriptions() == null;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "ProductEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +

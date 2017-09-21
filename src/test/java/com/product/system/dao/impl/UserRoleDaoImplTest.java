@@ -2,7 +2,7 @@ package com.product.system.dao.impl;
 
 import com.product.system.dao.UserRoleDAO;
 import com.product.system.dao.impl.config.TestConfiguration;
-import com.product.system.entity.UserRole;
+import com.product.system.entity.UserRoleEntity;
 import com.product.system.entity.UserRoleType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,39 +27,39 @@ public class UserRoleDaoImplTest {
     private SessionFactory sessionFactory;
     private Session session;
     private UserRoleDAO userRoleDAO;
-    private UserRole userRole;
+    private UserRoleEntity userRoleEntity;
 
     @Before
     public void setUp() throws Exception {
         session = mock(Session.class);
         when(sessionFactory.getCurrentSession()).thenReturn(session);
         userRoleDAO = new UserRoleDaoImpl(sessionFactory);
-        userRole = mock(UserRole.class);
+        userRoleEntity = mock(UserRoleEntity.class);
     }
 
     @Test
     public void sessionTest(){
-        when(userRole.getRoleType()).thenReturn(UserRoleType.ADMIN.name());
-        when(session.get(UserRole.class, 1)).thenReturn(userRole);
+        when(userRoleEntity.getRoleType()).thenReturn(UserRoleType.ADMIN.name());
+        when(session.get(UserRoleEntity.class, 1)).thenReturn(userRoleEntity);
 
-        assertEquals(userRole, userRoleDAO.getById(UserRole.class,1));
-        verify(session, timeout(100)).get(UserRole.class, 1);
+        assertEquals(userRoleEntity, userRoleDAO.getById(UserRoleEntity.class,1));
+        verify(session, timeout(100)).get(UserRoleEntity.class, 1);
 
-        assertEquals("ADMIN", userRole.getRoleType());
+        assertEquals("ADMIN", userRoleEntity.getRoleType());
     }
 
     @Test
     public void testNull(){
-        when(session.get(UserRole.class, 1)).thenReturn(null);
+        when(session.get(UserRoleEntity.class, 1)).thenReturn(null);
 
-        assertNull(userRoleDAO.getById(UserRole.class, 1));
-        verify(session, timeout(100)).get(UserRole.class, 1);
+        assertNull(userRoleDAO.getById(UserRoleEntity.class, 1));
+        verify(session, timeout(100)).get(UserRoleEntity.class, 1);
     }
 
     @Test(expected = Exception.class)
     public void testException(){
-        when(session.get(UserRole.class, -100)).thenThrow(new Exception());
+        when(session.get(UserRoleEntity.class, -100)).thenThrow(new Exception());
 
-        userRoleDAO.getById(UserRole.class, -100);
+        userRoleDAO.getById(UserRoleEntity.class, -100);
     }
 }

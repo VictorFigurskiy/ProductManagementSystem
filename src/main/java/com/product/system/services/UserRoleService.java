@@ -1,7 +1,7 @@
 package com.product.system.services;
 
 import com.product.system.dao.UserRoleDAO;
-import com.product.system.entity.UserRole;
+import com.product.system.entity.UserRoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,27 +22,27 @@ public class UserRoleService {
     }
 
     @Transactional(readOnly = true)
-    public UserRole getById(Integer id) {
-        return userRoleDAO.getById(UserRole.class, id);
+    public UserRoleEntity getById(Integer id) {
+        return userRoleDAO.getById(UserRoleEntity.class, id);
     }
 
     @Transactional(readOnly = true)
-    public List<UserRole> getAll() {
-        return userRoleDAO.getAll(UserRole.class);
+    public List<UserRoleEntity> getAll() {
+        return userRoleDAO.getAll(UserRoleEntity.class);
     }
 
     @Transactional
-    public void save(UserRole entity) {
+    public void save(UserRoleEntity entity) {
         userRoleDAO.save(entity);
     }
 
     @Transactional
-    public void update(UserRole entity) {
+    public void update(UserRoleEntity entity) {
         userRoleDAO.update(entity);
     }
 
     @Transactional
-    public void remove(UserRole entity) {
+    public void remove(UserRoleEntity entity) {
         userRoleDAO.remove(entity);
     }
 }

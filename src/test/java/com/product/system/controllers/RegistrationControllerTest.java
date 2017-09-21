@@ -4,12 +4,10 @@ import com.product.system.configuration.MvcConfiguration;
 import com.product.system.configuration.SecurityConfiguration;
 import com.product.system.controllers.config.TestAppModelConfiguration;
 
-import com.product.system.dao.UserDao;
-import com.product.system.entity.User;
-import com.product.system.entity.UserRole;
+import com.product.system.entity.UserEntity;
+import com.product.system.entity.UserRoleEntity;
 import com.product.system.services.UserRoleService;
 import com.product.system.services.UserService;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,13 +48,13 @@ public class RegistrationControllerTest {
     @Autowired
     private UserRoleService userRoleService;
 
-    private User user;
-    private UserRole userRole;
+    private UserEntity userEntity;
+    private UserRoleEntity userRoleEntity;
 
     @Before
     public void setUp() throws Exception {
-        user = mock(User.class);
-        userRole = mock(UserRole.class);
+        userEntity = mock(UserEntity.class);
+        userRoleEntity = mock(UserRoleEntity.class);
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(SecurityMockMvcConfigurers.springSecurity())
@@ -65,19 +63,19 @@ public class RegistrationControllerTest {
 
     @Test
     public void register() throws Exception {
-        when(userRoleService.getById(1)).thenReturn(userRole);
-        assertEquals(userRole, userRoleService.getById(1));
+        when(userRoleService.getById(1)).thenReturn(userRoleEntity);
+        assertEquals(userRoleEntity, userRoleService.getById(1));
 
-        HashSet<UserRole> userRoles = new HashSet<>();
-        userRoles.add(userRole);
-        User newUser = new User();
-        newUser.setUserRoles(userRoles);
+        HashSet<UserRoleEntity> userRoleEntities = new HashSet<>();
+        userRoleEntities.add(userRoleEntity);
+        UserEntity newUserEntity = new UserEntity();
+        newUserEntity.setUserRoleEntities(userRoleEntities);
 
-        doAnswer(invocation -> null).when(userService).save(newUser);
+        doAnswer(invocation -> null).when(userService).save(newUserEntity);
 
-        userService.save(newUser);
+        userService.save(newUserEntity);
 
-        verify(userService).save(newUser);
+        verify(userService).save(newUserEntity);
 
         mvc.perform(MockMvcRequestBuilders.post("/register").with(SecurityMockMvcRequestPostProcessors.user("test").roles("USER")))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))

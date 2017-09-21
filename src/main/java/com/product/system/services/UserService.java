@@ -1,8 +1,7 @@
 package com.product.system.services;
 
-import com.product.system.dao.ProductDao;
 import com.product.system.dao.UserDao;
-import com.product.system.entity.User;
+import com.product.system.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,32 +22,32 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User getById(Integer id) {
-        return userDao.getById(User.class, id);
+    public UserEntity getById(Integer id) {
+        return userDao.getById(UserEntity.class, id);
     }
 
     @Transactional(readOnly = true)
-    public User getByEmail(String email) {
+    public UserEntity getByEmail(String email) {
         return userDao.getByEmail(email);
     }
 
     @Transactional(readOnly = true)
-    public List<User> getAll() {
-        return userDao.getAll(User.class);
+    public List<UserEntity> getAll() {
+        return userDao.getAll(UserEntity.class);
     }
 
     @Transactional
-    public void save(User entity) {
+    public void save(UserEntity entity) {
         userDao.save(entity);
     }
 
     @Transactional
-    public void update(User entity) {
+    public void update(UserEntity entity) {
         userDao.update(entity);
     }
 
     @Transactional
-    public void remove(User entity) {
+    public void remove(UserEntity entity) {
         userDao.remove(entity);
     }
 }
